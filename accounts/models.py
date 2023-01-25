@@ -36,9 +36,11 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_superuser=True.'))
         return self.create_user(email, password, **extra_fields)
 
+
 class User(AbstractUser):
     """Defines a custom user with a role and reason for app usage"""
     objects = CustomUserManager()
+
     class Roles(models.TextChoices):
         ADMIN = "ADMIN", 'Admin'
         EDITOR = "EDITOR", 'Editor'
@@ -49,8 +51,12 @@ class User(AbstractUser):
         max_length=20, choices=Roles.choices, default=Roles.VIEWER)
     email = models.EmailField(_('email address'), unique=True)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    @classmethod
+    def get_user_by_email(cls, email):
+        return cls.objects.get(email=email)
 
     def __str__(self):
         return f"{self.id}"
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
