@@ -67,6 +67,15 @@ class AuthenticationTest(APITestCase):
         self.assertEqual(payload_data['first_name'], str(user.first_name))
         self.assertEqual(payload_data['last_name'], str(user.last_name))
 
+    def test_request_password_change(self):
+        user = create_user()
+        response = self.client.post(reverse('forgot_password'), data={
+            'email': user.email
+        })
+
+        # TODO: add test case for password reset email
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_change_password(self):
         user = create_user()
         login_response = self.client.post(reverse('login'), data={
