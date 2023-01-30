@@ -46,7 +46,7 @@ class Property(models.Model):
     project = models.ForeignKey(
         Project, related_name='property', on_delete=models.CASCADE)
     investor = models.ManyToManyField(
-        'Investor', related_name='property', blank=True)
+        'InvestorProfile', related_name='property', blank=True)
     morgage = models.ManyToManyField(
         'Morgage', related_name='property', blank=True)
     # property_type = models.
@@ -61,6 +61,9 @@ class Property(models.Model):
     # NOTE: SEEK CLARIY: not listed in user provision fields
     # development_status = models.BooleanField(default=False)
     # category
+
+    class Meta:
+        verbose_name_plural = "Properties"
 
     @property
     def price_per_sqft(self):
@@ -117,3 +120,16 @@ class InvestorProfile(models.Model):
 
     def __str__(self) -> str:
         return f"{self.expected_rent}"
+
+
+class Amenity(models.Model):
+    id = models.UUIDField(
+        primary_key=True, editable=False, default=uuid.uuid4())
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+    def __str__(self) -> str:
+        return self.name
