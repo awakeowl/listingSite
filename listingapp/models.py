@@ -99,3 +99,21 @@ class Morgage(models.Model):
     def __str__(self) -> str:
         return f"{self.price}"
 
+
+class InvestorProfile(models.Model):
+    id = models.UUIDField(
+        primary_key=True, editable=False, default=uuid.uuid4())
+    expected_rent = models.DecimalField(max_digits=10, decimal_places=2)
+    service_charge = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True)
+
+    @property
+    def annual_yield(self, morgage_price: int) -> int:
+        return (self.expected_rent * 12)/morgage_price
+
+    @property
+    def payback_period(self) -> int:
+        return 1/self.annual_yield
+
+    def __str__(self) -> str:
+        return f"{self.expected_rent}"
