@@ -69,3 +69,33 @@ class Property(models.Model):
     def __str__(self) -> str:
         return f"{self.project.name} - {self.location.location.name}"
 
+
+class Morgage(models.Model):
+    id = models.UUIDField(
+        primary_key=True, editable=False, default=uuid.uuid4())
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    deposit_percentage = models.DecimalField(max_digits=10, decimal_places=2)
+
+    @property
+    def deposit_amount(self) -> int:
+        return self.deposit_percentage * self.price
+
+    @property
+    def balance_percentage(self) -> int:
+        return 100 - self.deposit_percentage
+
+    @property
+    def balance_amount(self) -> int:
+        return self.balance_percentage * self.price
+
+    @property
+    def balance_15_years(self) -> str:
+        return "Dummy Response: Seek clarity"
+
+    @property
+    def balance_20_years(self) -> str:
+        return "Dummy Response: Seek clarity"
+
+    def __str__(self) -> str:
+        return f"{self.price}"
+
