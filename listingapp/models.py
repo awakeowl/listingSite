@@ -51,7 +51,7 @@ class Property(models.Model):
         'Morgage', related_name='property', blank=True)
     # property_type = models.
     pictures = models.ImageField(upload_to='properties/')
-    bedrooms = models.TextChoices(choices=Bedrooms.choices)
+    bedrooms = models.CharField(max_length=55, choices=Bedrooms.choices)
     bathrooms = models.IntegerField()
     size_sqft = models.IntegerField()
     cash_price = models.DecimalField(max_digits=10, decimal_places=2)
