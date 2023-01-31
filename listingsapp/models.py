@@ -3,8 +3,7 @@ from django.db import models
 
 
 class Location(models.Model):
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=100)
     description = models.TextField()
     # image =
@@ -14,8 +13,7 @@ class Location(models.Model):
 
 
 class Project(models.Model):
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=100)
     amenities = models.ManyToManyField('Amenity', related_name='amenities')
     location = models.ForeignKey(
@@ -41,12 +39,11 @@ class Property(models.Model):
         four_br = ('4br', '4br')
         five_br = ('5br', '5br')
 
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     project = models.ForeignKey(
         Project, related_name='property', on_delete=models.CASCADE)
     investor = models.ManyToManyField(
-        'InvestorProfile', related_name='property', blank=True)
+        'Investor', related_name='property', blank=True)
     morgage = models.ManyToManyField(
         'Morgage', related_name='property', blank=True)
     # property_type = models.
@@ -74,8 +71,7 @@ class Property(models.Model):
 
 
 class Morgage(models.Model):
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     deposit_percentage = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -103,9 +99,8 @@ class Morgage(models.Model):
         return f"{self.price}"
 
 
-class InvestorProfile(models.Model):
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+class Investor(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     expected_rent = models.DecimalField(max_digits=10, decimal_places=2)
     service_charge = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True)
@@ -123,8 +118,7 @@ class InvestorProfile(models.Model):
 
 
 class Amenity(models.Model):
-    id = models.UUIDField(
-        primary_key=True, editable=False, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
 
