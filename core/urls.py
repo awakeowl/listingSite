@@ -8,11 +8,11 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Solai",
-        default_version='v2',
+        title="RentScore Africa",
+        default_version='v1',
         description="Rentscore listing site",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="admin@renscore.africa"),
+        contact=openapi.Contact(email="systems@renscore.africa"),
         # license=openapi.License(name="MIT"),
     ),
     public=False,
@@ -21,6 +21,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls'), name='accounts'),
+    path('api/listing/', include('listingsapp.urls'), name='listing'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger',
