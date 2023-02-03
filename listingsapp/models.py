@@ -67,7 +67,7 @@ class Property(models.Model):
         return self.price_kes / self.size_sqft
 
     def __str__(self) -> str:
-        return f"{self.project.name} - {self.location.location.name}"
+        return f"{self.project.name} - {self.project.location.name}"
 
 
 class Morgage(models.Model):
@@ -96,7 +96,7 @@ class Morgage(models.Model):
         return "Dummy Response: Seek clarity"
 
     def __str__(self) -> str:
-        return f"{self.price}"
+        return f"Morgage Price: {self.price}"
 
 
 class Investor(models.Model):
@@ -114,7 +114,7 @@ class Investor(models.Model):
         return 1/self.annual_yield
 
     def __str__(self) -> str:
-        return f"{self.expected_rent}"
+        return f"Expected Rent: {self.expected_rent}"
 
 
 class Amenity(models.Model):
