@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'core.asgi.application'
+ASGI_APPLICATION = "core.asgi.application"
 AUTH_USER_MODEL = "accounts.User"
 
 
